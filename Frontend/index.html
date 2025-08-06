@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Watchlist</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { min-height: 100vh; }
+    .movie-card { transition: all 0.23s cubic-bezier(.4,0,.2,1);}
+    .movie-card:hover { transform: translateY(-6px) scale(1.015);}
+    .notification { transition: all 0.3s cubic-bezier(.4,0,.2,1);}
+  </style>
+</head>
+<body class="bg-gradient-to-tr from-blue-100 to-pink-100 text-gray-900 min-h-screen flex flex-col items-center p-2">
+  <!-- NOTIFICATION BAR -->
+  <div id="notification" class="notification fixed top-8 left-1/2 -translate-x-1/2 z-50 opacity-0 pointer-events-none"></div>
+
+  <div class="w-full max-w-7xl my-10">
+    <h1 class="text-4xl font-extrabold mb-6 text-center text-blue-700 tracking-tight">🎬 Movie Watchlist</h1>
+
+    <!-- FILTER + Add Button -->
+    <div class="flex flex-wrap gap-3 mb-6 items-center justify-between" id="filters">
+  <div class="flex gap-3 items-center flex-wrap">
+    <button onclick="setFilter('all')" id="filter-all" class="px-4 py-1 rounded shadow text-sm font-medium bg-blue-600 text-white">All</button>
+    <button onclick="setFilter('watched')" id="filter-watched" class="px-4 py-1 rounded shadow text-sm font-medium bg-emerald-100 text-emerald-800">Watched</button>
+    <button onclick="setFilter('unwatched')" id="filter-unwatched" class="px-4 py-1 rounded shadow text-sm font-medium bg-gray-200 text-gray-700">Unwatched</button>
+    <!-- YEAR -->
+    <select id="year-filter" onchange="setYearFilter(this.value)" class="ml-4 px-3 py-1 border rounded md:w-auto w-full bg-white shadow text-gray-700 text-sm">
+      <option value="">All Years</option>
+      <!-- Populated dynamically -->
+    </select>
+    <!-- SEARCH -->
+    <input type="text" id="search-input" oninput="setSearchFilter(this.value)" placeholder="Search by name..." class="ml-4 px-3 py-1 border rounded md:w-48 w-full bg-white shadow text-sm" />
+  </div>
+  <button onclick="openFormModal()" class="bg-blue-700 text-white px-6 py-2 rounded-lg shadow font-bold hover:bg-blue-800 transition mt-3 md:mt-0">+ Add Movie</button>
+</div>
+
+
+    <div id="movie-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Movies will be rendered here -->
+    </div>
+  </div>
+
+  <!-- Add Movie Modal -->
+  <div id="modal-overlay" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg p-7 w-full max-w-lg relative">
+      <button onclick="closeFormModal()" class="absolute top-2 right-2 bg-gray-100 rounded-full p-2 text-gray-700 hover:bg-gray-200 text-xl">&times;</button>
+      <h2 class="text-2xl mb-4 font-bold text-blue-700">Add Movie</h2>
+      <form id="movie-form" class="flex flex-col gap-3">
+        <input type="text" id="title" placeholder="Title" maxlength="40" required class="p-3 border rounded-md focus:ring-2 focus:border-blue-500">
+        <input type="number" id="year" placeholder="Year" min="1888" max="2099" required class="p-3 border rounded-md focus:ring-2 focus:border-blue-500">
+        <input type="url" id="poster" placeholder="Poster URL (https://...)" required class="p-3 border rounded-md focus:ring-2 focus:border-blue-500">
+        <button class="bg-blue-600 hover:bg-blue-700 transition text-white px-4 py-2 rounded-md shadow font-semibold mt-2" type="submit">Add Movie</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
