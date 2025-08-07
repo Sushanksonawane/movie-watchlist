@@ -1,7 +1,7 @@
 // ================= SETUP ===================
 const form = document.getElementById('movie-form');
 const movieList = document.getElementById('movie-list');
-const API_URL = 'http://localhost:3000/api/movie';
+const API_URL = 'https://movie-watchlist-witn.onrender.com/api/movie';
 
 let allMovies = [];
 let filter = 'all';
